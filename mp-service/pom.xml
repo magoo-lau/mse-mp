@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>vip.mseapp</groupId>
+        <artifactId>mse-mp</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mp-service</artifactId>
+    <name>mp-service</name>
+    <description>微信公众号业务积木（纯 jar，无 main）：多账号接入 + 回调验签解密 + 粉丝/消息/菜单/自动回复 + access_token 管理</description>
+
+    <dependencies>
+        <!-- 基座技术积木（starter-* 内部装配件：自动装配随 jar 走，工具本体经其传递带入） -->
+        <dependency>
+            <groupId>vip.mseapp</groupId>
+            <artifactId>starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mseapp</groupId>
+            <artifactId>starter-mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mseapp</groupId>
+            <artifactId>starter-security</artifactId>
+        </dependency>
+        <!-- 本工程契约 + 开放平台契约（开放能力自注册） -->
+        <dependency>
+            <groupId>vip.mseapp</groupId>
+            <artifactId>mp-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mseapp</groupId>
+            <artifactId>open-api</artifactId>
+        </dependency>
+        <!-- AI 平台契约：MpBizModuleProvider 模块声明 + MpBizQueryTool 模块查询工具基类（biz_query 模块化路由接入） -->
+        <dependency>
+            <groupId>vip.mseapp</groupId>
+            <artifactId>ai-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>

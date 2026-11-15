@@ -1,0 +1,34 @@
+# ==================== mse-mp 专属配置（Data ID: mse-mp.yaml    Group: DEFAULT_GROUP） ====================
+# 本文件是服务 application.yaml 的本地留档：经 init-configs.sh 写入 Nacos 后由配置中心管理，
+# 共享项（数据源/Redis/Sa-Token/MyBatis-Plus/Dubbo/租户开关）见 mse-micro-common/db/dubbo.yaml。
+# 注意：微信回调 /mp/callback/** 无用户会话，网关白名单已放行
+# （mse-framework/docker/nacos/config/mse-gateway.yaml 的 mse.gateway.ignore-urls）
+server:
+  port: 8091
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,slowsql
+
+spring:
+  datasource:
+    dynamic:
+      # Seata 已随 micro-starter 内置、默认关停（MSE_SEATA_ENABLED=false）：显式关闭数据源 Seata 代理开关
+      # （启用全局事务：置 MSE_SEATA_ENABLED=true 后删除本行即可恢复 true）
+      seata: false
+
+mse:
+  mp:
+    # 敏感字段（AppSecret/CallbackToken/EncodingAESKey/access_token）AES-GCM 落库加密密钥，
+    # 生产必须修改并妥善保管；更换密钥后历史密文无法解密，需重新录入凭据
+    crypt-key: ${MSE_MP_CRYPT_KEY:mse-mp-default-crypt-key-please-change}
+    # 微信 API 域名（内网联调可指向模拟器）
+    api-base: ${MSE_MP_API_BASE:https://api.weixin.qq.com}
+    # 调用微信 API 的 HTTP 超时（毫秒）；回调处理总耗时需控制在微信 5 秒应答窗口内
+    http-timeout-ms: 3000
+
+# ==================== 信创数据库切换 ====================
+# 达梦/金仓的数据源与方言由共享 mse-micro-db.yaml 的 dm/kingbase profile 提供，
+# 启动加 --spring.profiles.active=dm 或 kingbase 即切换，本文件无需重复配置。

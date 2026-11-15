@@ -1,0 +1,19 @@
+target/
+*.class
+*.jar.original
+.idea/
+*.iml
+.vscode/
+.DS_Store
+*.log
+.flattened-pom.xml
+
+# 容器运行时数据卷（本地挂载，不入库）
+**/docker/*/volumes/
+
+**/logs/
+**/node_modules/
+**/dist/
+node_modules/
+dist/
+.zcode/

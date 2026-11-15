@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>vip.mseapp</groupId>
+        <artifactId>mse-mp</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mp-boot</artifactId>
+    <name>mp-boot</name>
+    <description>微信公众号平台微服务启动器：micro-starter + mp-service；mse.rpc.mode 默认 dubbo，鉴权经契约消费 mse-system，启动即注册供网关 lb://mse-mp 路由</description>
+
+    <dependencies>
+        <!-- 微服务形态入口启动器：Nacos 配置/注册 + Dubbo RPC（mse.rpc.mode 默认 dubbo）+ 基座契约消费桥接
+             （鉴权数据源 @SaCheckPermission / 独立库租户路由 / 操作日志 RPC 回退，本服务不打包基座 HTTP 接口）
+             + Seata 内置 + actuator + 三方言 JDBC 驱动 -->
+        <dependency>
+            <groupId>vip.mseapp</groupId>
+            <artifactId>micro-starter</artifactId>
+        </dependency>
+        <!-- 自有业务积木 -->
+        <dependency>
+            <groupId>vip.mseapp</groupId>
+            <artifactId>mp-service</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
