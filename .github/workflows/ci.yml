@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: 后端构建（前置框架仓 install）
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: magoo-lau/mse-framework
+          path: _framework
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: 安装框架区产物
+        run: mvn -B -ntp install -DskipTests -f _framework/pom.xml
+      - name: 构建本仓业务工程
+        run: sh build.sh
+
+  frontend:
+    name: 前端构建
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: magoo-lau/mse-framework
+          path: _framework
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: '**/package-lock.json'
+      - name: 布局兄弟目录（满足 UI 的 mse-ui-shared file 依赖相对引用）
+        run: ln -s "$GITHUB_WORKSPACE/_framework" ../mse-framework
+      - name: build-ui.sh
+        run: sh build-ui.sh

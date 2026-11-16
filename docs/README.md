@@ -7,7 +7,7 @@
 
 面向**多租户 SaaS** 的微信公众号管理平台：一个实例承接任意多个公众号（订阅号/服务号），管理「接入 → 回调 → 粉丝 → 消息 → 自动回复 → 菜单运营」的公众号运营闭环，功能对标 go-wechat（Go 版多公众号接入管理平台），以 Java 21 + Spring Boot 重新实现。
 
-在本仓库中的形态：**mse-modules 业务工程**（独立 Maven 工程，不进根 pom 聚合），wujie 微前端子应用 + 微服务启动器，积木拼法与 mse-demo / mse-mes 一致：
+在本仓库中的形态：**独立业务工程仓**（自 ai-mse 单仓拆分，源 commit cc5410a3；独立 Maven 工程），wujie 微前端子应用 + 微服务启动器，积木拼法与 mse-demo / mse-mes 一致：
 
 - `mp-api`：跨服务 RPC 契约（粉丝/消息只读查询，经 mse-open 自注册对外开放）
 - `mp-service`：业务积木（SPI 自装配，Controller / Service / Mapper 随 jar 就绪）
@@ -76,4 +76,12 @@ mse-mp/
 3. **权限点一律挂靠本工程 type=3 页面菜单**（6001-6011 已挂 431-436），参与角色授权分组与租户套餐裁剪；前端按钮用 `v-permission` 按权限码控制。
 4. **回调匿名接口以签名鉴权**：`/mp/callback/**` 在网关白名单放行（无用户会话），下游按微信签名验签；管理端接口仍由 `@SaCheckPermission`（租户登录态）把守。
 5. **凭据安全**：AppSecret / Token / EncodingAESKey / access_token 一律 AES-256-GCM 加密落库、接口不回显、编辑留空 = 不修改；生产必须更换 `mse.mp.crypt-key` 默认值。
-6. **资源已登记**：第三节实际值均登记在 `zcode-plugin/plugins/mse-dev/references/alloc-tables.md`，续占号段先查该表。
+6. **资源已登记**：第三节实际值均登记在 `mse-agent-plugin 仓 plugins/mse-dev/references/alloc-tables.md`，续占号段先查该表。
+
+## 拆仓配套文档（新增）
+
+| 文档 | 内容 |
+| --- | --- |
+| [build-and-run.md](build-and-run.md) | 构建（build.sh/build-ui.sh）、本地运行（framework 仓基础设施）、镜像与 K8s |
+| [verification.md](verification.md) | 回归验证要点 |
+| [../AGENTS.md](../AGENTS.md) | 协作约定；[../docker/README.md](../docker/README.md) 镜像资产与服务配置 |
