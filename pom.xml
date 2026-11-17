@@ -28,8 +28,8 @@
 
     <properties>
         <!-- mse-ai / mse-open 平台契约（biz↔biz 依赖，基座 BOM 不仲裁，显式版本） -->
-        <ai-api.version>1.0.0-SNAPSHOT</ai-api.version>
-        <open-api.version>1.0.0-SNAPSHOT</open-api.version>
+        <ai-api.version>main-SNAPSHOT</ai-api.version>
+        <open-api.version>main-SNAPSHOT</open-api.version>
     </properties>
 
     <dependencyManagement>
