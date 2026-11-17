@@ -7,13 +7,13 @@
     <!-- 独立工程：parent 指向基座 mse-starter-parent（编译/插件/BOM/仓库统一收编，随框架 mvn install），
          仅通过 BOM 消费基座发布件（积木式组装），不属于 ai-mse 聚合模块 -->
     <parent>
-        <groupId>vip.mseapp</groupId>
+        <groupId>com.github.magoo-lau.mse-framework</groupId>
         <artifactId>mse-starter-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
-    <groupId>vip.mseapp</groupId>
+    <groupId>com.github.magoo-lau.mse-mp</groupId>
     <artifactId>mse-mp</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -36,27 +36,34 @@
         <dependencies>
             <!-- 本工程模块 -->
             <dependency>
-                <groupId>vip.mseapp</groupId>
+                <groupId>com.github.magoo-lau.mse-mp</groupId>
                 <artifactId>mp-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mseapp</groupId>
+                <groupId>com.github.magoo-lau.mse-mp</groupId>
                 <artifactId>mp-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- mse-ai 平台契约：反向业务模块声明与查询工具（AiBizModuleProvider/AbstractBizQueryTool） -->
             <dependency>
-                <groupId>vip.mseapp</groupId>
+                <groupId>com.github.magoo-lau.mse-modules</groupId>
                 <artifactId>ai-api</artifactId>
                 <version>${ai-api.version}</version>
             </dependency>
             <!-- mse-open 开放平台契约：开放能力自注册（OpenApiContributor/Descriptor） -->
             <dependency>
-                <groupId>vip.mseapp</groupId>
+                <groupId>com.github.magoo-lau.mse-modules</groupId>
                 <artifactId>open-api</artifactId>
                 <version>${open-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+    <repository>
+        <id>jitpack</id>
+        <url>https://jitpack.io</url>
+    </repository>
+    </repositories>
 </project>

@@ -40,3 +40,7 @@ kubectl apply -f mp-boot/k8s/mp.yaml
 ```sh
 sh build-ui.sh mp-ui    # --base=/sub-apps/mp/
 ```
+
+## mse-ui-shared 引入方式（npm git 依赖）
+
+mse-ui-shared 为 npm git 依赖（独立仓 `github:magoo-lau/mse-ui-shared#release/1.0.0`；根 .npmrc 已放行 allow-git，npm ci 原生安装）；升级：独立仓 release/1.0.0 分支前进后重装刷新 lock（详见 mse-framework 仓 docs/frontend.md §六）。

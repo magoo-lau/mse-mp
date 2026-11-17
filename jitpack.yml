@@ -1,0 +1,3 @@
+# JitPack 构建配置（https://jitpack.io）：消费方经 com.github.magoo-lau.<仓>:<模块>:1.0.0-SNAPSHOT 解析本仓产物
+jdk:
+  - openjdk21
